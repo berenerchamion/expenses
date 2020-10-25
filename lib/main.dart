@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'widgets/expense_list.dart';
 import 'widgets/new_expense.dart';
+import 'widgets/users_expenses.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,8 +38,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ), //Card
           ), //Container CHART
-          NewExpense(),
-          ExpenseList(),
+          UsersExpenses(),
         ],
       ), //Widget // Main Column
     );

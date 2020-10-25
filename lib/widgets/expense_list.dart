@@ -1,44 +1,17 @@
+import 'package:expenses/models/expense.dart';
 import 'package:flutter/material.dart';
-import '../models/expense.dart';
 import 'package:intl/intl.dart';
+import '../models/expense.dart';
 
-class ExpenseList extends StatefulWidget {
-  @override
-  _ExpenseListState createState() => _ExpenseListState();
-}
+class ExpenseList extends StatelessWidget {
+  final List<Expense> expenses;
 
-class _ExpenseListState extends State<ExpenseList> {
-  final List<Expense> _usersExpenses = [
-    Expense(
-      id: '1',
-      title: 'Headphones',
-      amount: 74.45,
-      date: DateTime.now(),
-    ),
-    Expense(
-      id: '2',
-      title: 'Sneakers',
-      amount: 135.45,
-      date: DateTime.utc(2020, 6, 6),
-    ),
-    Expense(
-      id: '3',
-      title: 'MacBook Pro',
-      amount: 2035.45,
-      date: DateTime.utc(2017, 9, 11),
-    ),
-    Expense(
-      id: '4',
-      title: 'Nespresso Gold',
-      amount: 235.45,
-      date: DateTime.utc(2019, 3, 16),
-    ),
-  ];
+  ExpenseList(this.expenses);
 
   @override
   Widget build(BuildContext context) {
-    return           Column(
-      children: _usersExpenses.map((tx) {
+    return Column(
+      children: expenses.map((tx) {
         return Card(
           elevation: 5,
           child: Row(
