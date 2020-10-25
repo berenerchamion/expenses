@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './transaction.dart';
+import 'models/transaction.dart';
 import 'package:intl/intl.dart';
 
 void main() {
@@ -17,6 +17,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   final List<Transaction> transactions = [
     Transaction(
       id: '1',
@@ -51,7 +55,6 @@ class MyHomePage extends StatelessWidget {
         title: Text('My Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -65,6 +68,37 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ), //Card
           ), //Container CHART
+          Card(
+            elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Title",
+                    ),
+                    controller: titleController,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                        labelText: "Amount",
+                    ),
+                    controller: amountController,
+                  ),
+                  FlatButton(
+                    child: Text('Add Expense'),
+                    textColor: Colors.deepPurple,
+                    onPressed: () {
+                      print(titleController.text);
+                      print(amountController.text);
+                    },
+                  ), //FlatButton
+                ],
+              ),
+            ),
+          ), //End Card
           Column(
             children: transactions.map((tx) {
               return Card(
@@ -89,10 +123,9 @@ class MyHomePage extends StatelessWidget {
                       child: Text(
                         '\$${tx.amount}',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.deepPurple
-                        ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.deepPurple),
                       ),
                     ), //Container
                     Column(
@@ -104,16 +137,15 @@ class MyHomePage extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Colors.black
-                          ),
+                              color: Colors.black),
                         ),
                         Text(
                           DateFormat.yMMMd().format(tx.date),
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: Colors.blueGrey[300],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.blueGrey[300],
                           ),
                         ),
                       ],
