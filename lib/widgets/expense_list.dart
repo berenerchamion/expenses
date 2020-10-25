@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import '../models/transaction.dart';
+import '../models/expense.dart';
 import 'package:intl/intl.dart';
 
-class TransactionList extends StatefulWidget {
+class ExpenseList extends StatefulWidget {
   @override
-  _TransactionListState createState() => _TransactionListState();
+  _ExpenseListState createState() => _ExpenseListState();
 }
 
-class _TransactionListState extends State<TransactionList> {
-  final List<Transaction> _usersExpenses = [
-    Transaction(
+class _ExpenseListState extends State<ExpenseList> {
+  final List<Expense> _usersExpenses = [
+    Expense(
       id: '1',
       title: 'Headphones',
       amount: 74.45,
       date: DateTime.now(),
     ),
-    Transaction(
+    Expense(
       id: '2',
       title: 'Sneakers',
       amount: 135.45,
       date: DateTime.utc(2020, 6, 6),
     ),
-    Transaction(
+    Expense(
       id: '3',
       title: 'MacBook Pro',
       amount: 2035.45,
       date: DateTime.utc(2017, 9, 11),
     ),
-    Transaction(
+    Expense(
       id: '4',
       title: 'Nespresso Gold',
       amount: 235.45,

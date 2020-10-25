@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'widgets/transaction_list.dart';
+import 'widgets/expense_list.dart';
+import 'widgets/new_expense.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,10 +17,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,38 +37,8 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ), //Card
           ), //Container CHART
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Title",
-                    ),
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: "Amount",
-                    ),
-                    controller: amountController,
-                  ),
-                  FlatButton(
-                    child: Text('Add Expense'),
-                    textColor: Colors.deepPurple,
-                    onPressed: () {
-                      print(titleController.text);
-                      print(amountController.text);
-                    },
-                  ), //FlatButton
-                ],
-              ),
-            ),
-          ), //End Card
-          TransactionList(),
+          NewExpense(),
+          ExpenseList(),
         ],
       ), //Widget // Main Column
     );
