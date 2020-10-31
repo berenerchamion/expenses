@@ -7,6 +7,21 @@ class NewExpense extends StatelessWidget {
 
   NewExpense(this.addExpense);
 
+  void newExp() {
+    final title = titleController.text;
+    final amount = double.tryParse(amountController.text);
+
+    if (title.isEmpty || amount <= 0 || amount == null) {
+      return;
+    }
+
+    addExpense(
+      titleController.text,
+      double.parse(amountController.text),
+      DateTime.now(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,23 +36,23 @@ class NewExpense extends StatelessWidget {
                 labelText: "Title",
               ),
               controller: titleController,
+              onSubmitted: (_) => newExp(),
             ),
             TextField(
               decoration: InputDecoration(
                 labelText: "Amount",
               ),
               controller: amountController,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              onSubmitted: (_) => newExp(),
+              //ok that goofy _ means well this is a stupid thing about
+              //not using an argument that I have to use, but this means I am
+              //not going to use it. stupid.
             ),
             FlatButton(
               child: Text('Add Expense'),
               textColor: Colors.deepPurple,
-              onPressed: () {
-                addExpense(
-                  titleController.text,
-                  double.parse(amountController.text),
-                  DateTime.now(),
-                );
-              },
+              onPressed: newExp,
             ), //FlatButton
           ],
         ),
