@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewExpense extends StatelessWidget {
+class NewExpense extends StatefulWidget {
   final Function addExpense;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewExpense(this.addExpense);
+
+  @override
+  _NewExpenseState createState() => _NewExpenseState();
+}
+
+class _NewExpenseState extends State<NewExpense> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void newExp() {
     final title = titleController.text;
@@ -15,11 +22,13 @@ class NewExpense extends StatelessWidget {
       return;
     }
 
-    addExpense(
+    widget.addExpense(
       titleController.text,
       double.parse(amountController.text),
       DateTime.now(),
     );
+
+    Navigator.of(context).pop();
   }
 
   @override

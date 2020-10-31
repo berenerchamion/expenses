@@ -11,7 +11,7 @@ class ExpenseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 500,
         child: ListView.builder(
           itemBuilder: (ctx, index) {
             return Card(
@@ -29,7 +29,6 @@ class ExpenseList extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       border: Border.all(
                         width: 2,
-                        color: Colors.deepPurple,
                       ),
                     ),
                     alignment: Alignment.center,
@@ -38,7 +37,8 @@ class ExpenseList extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
-                          color: Colors.deepPurple),
+                          color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ), //Container
                   Column(
@@ -58,7 +58,7 @@ class ExpenseList extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
-                          color: Colors.blueGrey[300],
+                          color: Theme.of(context).accentColor,
                         ),
                       ),
                     ],

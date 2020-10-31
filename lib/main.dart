@@ -11,7 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Beren\'s Expenses',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.blueGrey[300],
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          foregroundColor: Colors.amber,
+          backgroundColor: Colors.deepPurple,
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -76,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Flutter App'),
+        title: Text('Beren\'s Expenses'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
