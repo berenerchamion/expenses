@@ -15,9 +15,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.blueGrey[300],
+        textTheme: ThemeData.light().textTheme.copyWith(
+          headline6: TextStyle(
+            fontFamily: 'OpenSans',
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+        ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           foregroundColor: Colors.amber,
           backgroundColor: Colors.deepPurple,
+        ),
+        fontFamily: 'Quicksand',
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
       home: MyHomePage(),
@@ -32,30 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Expense> _usersExpenses = [
-    Expense(
-      id: '1',
-      title: 'Headphones',
-      amount: 74.45,
-      date: DateTime.now(),
-    ),
-    Expense(
-      id: '2',
-      title: 'Sneakers',
-      amount: 135.45,
-      date: DateTime.utc(2020, 6, 6),
-    ),
-    Expense(
-      id: '3',
-      title: 'MacBook Pro',
-      amount: 2035.45,
-      date: DateTime.utc(2017, 9, 11),
-    ),
-    Expense(
-      id: '4',
-      title: 'Nespresso Gold',
-      amount: 235.45,
-      date: DateTime.utc(2019, 3, 16),
-    ),
+
   ];
 
   void _addNewExpense(String title, double amount, DateTime date) {
