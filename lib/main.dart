@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'models/expense.dart';
 import 'widgets/expense_list.dart';
 import 'widgets/new_expense.dart';
-import 'models/expense.dart';
+import 'widgets/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,9 +49,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Expense> _usersExpenses = [
+  final List<Expense> _usersExpenses = [];
 
-  ];
+  List<Expense> get _weeklyExpenses {
+    return _usersExpenses.where((exp) {
+      return exp.date.isAfter(DateTime.now().subtract(Duration(days: 7),));
+    }).toList();
+  }
 
   void _addNewExpense(String title, double amount, DateTime date) {
     final newExpense = Expense(
@@ -94,17 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text(
-                  'THIS IS THE CHART!',
-                  textAlign: TextAlign.center,
-                ),
-                color: Colors.green,
-                elevation: 5,
-              ),
-            ),
+           Chart(_weeklyExpenses),
             ExpenseList(_usersExpenses),
           ],
         ),
