@@ -22,14 +22,12 @@ class Chart extends StatelessWidget {
           dailyTotal += weeklyExpenses[i].amount;
         }
       }
-      print(DateFormat.E().format(weekDay));
-      print(dailyTotal);
 
       return {
-        'day': DateFormat.E().format(weekDay),
+        'day': DateFormat.Md().format(weekDay),
         'amount': dailyTotal,
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalExpensesForWeek {

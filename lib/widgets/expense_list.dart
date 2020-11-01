@@ -35,53 +35,36 @@ class ExpenseList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
-                  elevation: 5,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(10.0),
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          border: Border.all(
-                            width: 2,
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          '\$${expenses[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ), //Container
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            expenses[index].title,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            DateFormat.yMMMd().format(expenses[index].date),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontStyle: FontStyle.italic,
-                              color: Theme.of(context).accentColor,
-                            ),
-                          ),
-                        ],
-                      ), //Column
-                    ],
-                  ), //<Widget> //Row
-                ); //Card
+                  margin: EdgeInsets.symmetric(
+                    vertical: 5,
+                    horizontal: 3,
+                  ),
+                  elevation: 3,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: FittedBox(
+                          child: Text('\$${expenses[index].amount}'), //Text
+                        ), //FittedBox
+                      ), //Padding
+                    ), //CircleAvatar
+                    title: Text(
+                      expenses[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(expenses[index].date),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                  ),
+                ); //ListTile
               },
               itemCount: expenses.length,
             ),
