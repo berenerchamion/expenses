@@ -22,6 +22,10 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 17,
           ),
+          button: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           foregroundColor: Colors.amber,

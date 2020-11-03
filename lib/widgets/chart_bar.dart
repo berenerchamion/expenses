@@ -1,7 +1,4 @@
-import 'package:expenses/models/expense.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '../models/expense.dart';
 
 class ChartBar extends StatelessWidget {
   final String weekday;

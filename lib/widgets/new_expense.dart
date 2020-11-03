@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewExpense extends StatefulWidget {
   final Function addExpense;
@@ -10,25 +11,43 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
-  final amountController = TextEditingController();
-
-  void newExp() {
-    final title = titleController.text;
-    final amount = double.tryParse(amountController.text);
+  void _newExp() {
+    final title = _titleController.text;
+    final amount = double.tryParse(_amountController.text);
 
     if (title.isEmpty || amount <= 0 || amount == null) {
       return;
     }
 
     widget.addExpense(
-      titleController.text,
-      double.parse(amountController.text),
+      _titleController.text,
+      double.parse(_amountController.text),
       DateTime.now(),
     );
 
     Navigator.of(context).pop();
+  }
+
+  void _displayDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((date) {
+      if (date != null) {
+        _selectedDate = date;
+      } else {
+        return;
+      }
+      setState((){
+        _selectedDate = date;
+      });
+    });
   }
 
   @override
@@ -44,24 +63,47 @@ class _NewExpenseState extends State<NewExpense> {
               decoration: InputDecoration(
                 labelText: "Title",
               ),
-              controller: titleController,
-              onSubmitted: (_) => newExp(),
+              controller: _titleController,
+              onSubmitted: (_) => _newExp(),
             ),
             TextField(
               decoration: InputDecoration(
                 labelText: "Amount",
               ),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => newExp(),
+              onSubmitted: (_) => _newExp(),
               //ok that goofy _ means well this is a stupid thing about
               //not using an argument that I have to use, but this means I am
               //not going to use it. stupid.
             ),
-            FlatButton(
+            Container(
+              height: 75,
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    _selectedDate == null
+                        ? 'No date chosen'
+                        : DateFormat.yMd().format(_selectedDate),
+                  ),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ), //Text
+                    onPressed: _displayDatePicker,
+                  ),
+                ],
+              ),
+            ),
+            RaisedButton(
               child: Text('Add Expense'),
-              textColor: Colors.deepPurple,
-              onPressed: newExp,
+              color: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).textTheme.button.color,
+              onPressed: _newExp,
             ), //FlatButton
           ],
         ),
