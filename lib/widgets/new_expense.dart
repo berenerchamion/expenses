@@ -17,16 +17,24 @@ class _NewExpenseState extends State<NewExpense> {
 
   void _newExp() {
     final title = _titleController.text;
+
+    if (_amountController.text.isEmpty) {
+      return;
+    }
+
     final amount = double.tryParse(_amountController.text);
 
-    if (title.isEmpty || amount <= 0 || amount == null) {
+    if (title.isEmpty ||
+        amount <= 0 ||
+        amount == null ||
+        _selectedDate == null) {
       return;
     }
 
     widget.addExpense(
       _titleController.text,
       double.parse(_amountController.text),
-      DateTime.now(),
+      _selectedDate,
     );
 
     Navigator.of(context).pop();
@@ -44,7 +52,7 @@ class _NewExpenseState extends State<NewExpense> {
       } else {
         return;
       }
-      setState((){
+      setState(() {
         _selectedDate = date;
       });
     });
@@ -84,17 +92,19 @@ class _NewExpenseState extends State<NewExpense> {
                   Text(
                     _selectedDate == null
                         ? 'No date chosen'
-                        : DateFormat.yMd().format(_selectedDate),
+                        : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
                   ),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ), //Text
-                    onPressed: _displayDatePicker,
+                  Expanded(
+                    child: FlatButton(
+                      textColor: Theme.of(context).primaryColor,
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ), //Text
+                      onPressed: _displayDatePicker,
+                    ),
                   ),
                 ],
               ),

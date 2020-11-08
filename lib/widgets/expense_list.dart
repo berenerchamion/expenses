@@ -5,8 +5,9 @@ import '../models/expense.dart';
 
 class ExpenseList extends StatelessWidget {
   final List<Expense> expenses;
+  final Function deleteExp;
 
-  ExpenseList(this.expenses);
+  ExpenseList(this.expenses, this.deleteExp);
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,13 @@ class ExpenseList extends StatelessWidget {
                         fontStyle: FontStyle.italic,
                         color: Theme.of(context).accentColor,
                       ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).errorColor,
+                      ),
+                      onPressed: () => deleteExp(expenses[index].id),
                     ),
                   ),
                 ); //ListTile

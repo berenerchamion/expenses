@@ -17,16 +17,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.blueGrey[300],
         textTheme: ThemeData.light().textTheme.copyWith(
-          headline6: TextStyle(
-            fontFamily: 'OpenSans',
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
-          ),
-          button: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+              button: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           foregroundColor: Colors.amber,
           backgroundColor: Colors.deepPurple,
@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         ),
       ),
       home: MyHomePage(),
@@ -57,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Expense> get _weeklyExpenses {
     return _usersExpenses.where((exp) {
-      return exp.date.isAfter(DateTime.now().subtract(Duration(days: 7),));
+      return exp.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
     }).toList();
   }
 
@@ -71,6 +73,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       _usersExpenses.add(newExpense);
+    });
+  }
+
+  void _deleteExpense(String id) {
+    setState(() {
+      //_usersExpenses.removeWhere((exp) => exp.id == id);
+      _usersExpenses.removeWhere((exp) {
+        return exp.id == id;
+      });
     });
   }
 
@@ -103,8 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-           Chart(_weeklyExpenses),
-            ExpenseList(_usersExpenses),
+            Chart(_weeklyExpenses),
+            ExpenseList(_usersExpenses, _deleteExpense)
           ],
         ),
       ),
