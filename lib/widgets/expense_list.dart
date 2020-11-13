@@ -12,7 +12,6 @@ class ExpenseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
       child: expenses.isEmpty
           ? Column(
               children: <Widget>[
