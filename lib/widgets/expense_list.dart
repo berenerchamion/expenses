@@ -13,25 +13,28 @@ class ExpenseList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: expenses.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'No expenses added yet.',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  height: 350,
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+          ? LayoutBuilder(builder: (ctx, constraints) {
+              return (Column(
+                children: <Widget>[
+                  Text(
+                    'No expenses added yet.',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
-                ),
-              ],
-            ) //Column
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.6,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ) //Column
+                  );
+            })
           : ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(

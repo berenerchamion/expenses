@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'models/expense.dart';
 import 'widgets/expense_list.dart';
 import 'widgets/new_expense.dart';
@@ -53,7 +54,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Expense> _usersExpenses = [];
+  final List<Expense> _usersExpenses = [
+  ];
+
+  bool _showChart = false;
 
   List<Expense> get _weeklyExpenses {
     return _usersExpenses.where((exp) {
@@ -116,13 +120,27 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Show Chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (val) {
+                    setState((){
+                      _showChart = val;
+                    });
+                  },
+                ),
+              ],
+            ), //Row
+            _showChart ? Container(
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top) *
-                  0.3,
+                  0.7,
               child: Chart(_weeklyExpenses),
-            ),
+            ) :
             Container(
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
