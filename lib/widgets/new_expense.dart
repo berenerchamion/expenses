@@ -60,64 +60,71 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Title",
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Title",
+                ),
+                controller: _titleController,
+                onSubmitted: (_) => _newExp(),
               ),
-              controller: _titleController,
-              onSubmitted: (_) => _newExp(),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: "Amount",
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Amount",
+                ),
+                controller: _amountController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                onSubmitted: (_) => _newExp(),
+                //ok that goofy _ means well this is a stupid thing about
+                //not using an argument that I have to use, but this means I am
+                //not going to use it. stupid.
               ),
-              controller: _amountController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => _newExp(),
-              //ok that goofy _ means well this is a stupid thing about
-              //not using an argument that I have to use, but this means I am
-              //not going to use it. stupid.
-            ),
-            Container(
-              height: 75,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    _selectedDate == null
-                        ? 'No date chosen'
-                        : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
-                  ),
-                  Expanded(
-                    child: FlatButton(
-                      textColor: Theme.of(context).primaryColor,
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ), //Text
-                      onPressed: _displayDatePicker,
+              Container(
+                height: 75,
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      _selectedDate == null
+                          ? 'No date chosen'
+                          : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: FlatButton(
+                        textColor: Theme.of(context).primaryColor,
+                        child: Text(
+                          'Choose Date',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ), //Text
+                        onPressed: _displayDatePicker,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            RaisedButton(
-              child: Text('Add Expense'),
-              color: Theme.of(context).primaryColor,
-              textColor: Theme.of(context).textTheme.button.color,
-              onPressed: _newExp,
-            ), //FlatButton
-          ],
+              RaisedButton(
+                child: Text('Add Expense'),
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).textTheme.button.color,
+                onPressed: _newExp,
+              ), //FlatButton
+            ],
+          ),
         ),
-      ),
-    ); //End Card
+      ), //End Card
+    );
   }
 }
