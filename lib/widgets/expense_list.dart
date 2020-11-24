@@ -11,6 +11,9 @@ class ExpenseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final mediaQuery = MediaQuery.of(context);
+
     return Container(
       child: expenses.isEmpty
           ? LayoutBuilder(builder: (ctx, constraints) {
@@ -18,7 +21,7 @@ class ExpenseList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'No expenses added yet.',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: theme.textTheme.headline6,
                   ),
                   SizedBox(
                     height: 40,
@@ -55,7 +58,7 @@ class ExpenseList extends StatelessWidget {
                     ), //CircleAvatar
                     title: Text(
                       expenses[index].title,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: theme.textTheme.headline6,
                     ),
                     subtitle: Text(
                       DateFormat.yMMMd().format(expenses[index].date),
@@ -63,16 +66,23 @@ class ExpenseList extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                         fontStyle: FontStyle.italic,
-                        color: Theme.of(context).accentColor,
+                        color: theme.accentColor,
                       ),
                     ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: Theme.of(context).errorColor,
-                      ),
-                      onPressed: () => deleteExp(expenses[index].id),
-                    ),
+                    trailing: mediaQuery.size.width > 360
+                        ? FlatButton.icon(
+                            icon: Icon(Icons.delete),
+                            label: Text('Delete'),
+                            textColor: theme.errorColor,
+                            onPressed: () => deleteExp(expenses[index].id),
+                          )
+                        : IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: theme.errorColor,
+                            ),
+                            onPressed: () => deleteExp(expenses[index].id),
+                          ),
                   ),
                 ); //ListTile
               },

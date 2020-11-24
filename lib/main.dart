@@ -1,3 +1,5 @@
+import "dart:io";
+
 import 'package:flutter/material.dart';
 
 import 'models/expense.dart';
@@ -99,8 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final _mediaQuery = MediaQuery.of(context);
+    final bool _isLandscape = _mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text('Beren\'s Expenses'),
@@ -113,30 +115,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final Widget _expListWidget = Container(
-      height: (MediaQuery.of(context).size.height -
+      height: (_mediaQuery.size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) *
+              _mediaQuery.padding.top) *
           0.7,
       child: ExpenseList(_usersExpenses, _deleteExpense),
     );
 
     return Scaffold(
       appBar: appBar, //AppBar
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => _startAddNewTransaction(context),
-      ), //End FAB
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context),
+            ), //End FAB
 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (isLandscape)
+            if (_isLandscape)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('Show Chart'),
-                  Switch(
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
                     value: _showChart,
                     onChanged: (val) {
                       setState(() {
@@ -146,21 +151,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ), //Row
-            if (!isLandscape)
+            if (!_isLandscape)
               Container(
-                height: (MediaQuery.of(context).size.height -
+                height: (_mediaQuery.size.height -
                         appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
+                        _mediaQuery.padding.top) *
                     0.3,
                 child: Chart(_weeklyExpenses),
               ),
-            if (!isLandscape) _expListWidget,
-            if (isLandscape)
+            if (!_isLandscape) _expListWidget,
+            if (_isLandscape)
               _showChart
                   ? Container(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (_mediaQuery.size.height -
                               appBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              _mediaQuery.padding.top) *
                           0.7,
                       child: Chart(_weeklyExpenses),
                     )
