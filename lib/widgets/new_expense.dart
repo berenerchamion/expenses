@@ -1,5 +1,10 @@
+import "dart:io";
+
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+
+import './adaptive_flat_button.dart';
 
 class NewExpense extends StatefulWidget {
   final Function addExpense;
@@ -101,21 +106,18 @@ class _NewExpenseState extends State<NewExpense> {
                           : 'Date: ${DateFormat.yMd().format(_selectedDate)}',
                     ),
                     Expanded(
-                      child: FlatButton(
-                        textColor: Theme.of(context).primaryColor,
-                        child: Text(
-                          'Choose Date',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ), //Text
-                        onPressed: _displayDatePicker,
-                      ),
+                      child: AdaptiveFlatButton('Choose Date', _displayDatePicker),
                     ),
                   ],
                 ),
               ),
-              RaisedButton(
+              Platform.isIOS ? CupertinoButton (
+                child: Text('Add Expense'),
+                color: Theme.of(context).primaryColor,
+                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+                onPressed: _newExp,
+              )
+                  : RaisedButton(
                 child: Text('Add Expense'),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).textTheme.button.color,
