@@ -25,7 +25,7 @@ class AdaptiveButton extends StatelessWidget {
           )
         : raisedButton
             ? RaisedButton(
-                child: Text('Add Expense'),
+                child: const Text('Add Expense'),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).textTheme.button.color,
                 onPressed: handler,
@@ -34,7 +34,7 @@ class AdaptiveButton extends StatelessWidget {
                 textColor: Theme.of(context).primaryColor,
                 child: Text(
                   buttonText,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),

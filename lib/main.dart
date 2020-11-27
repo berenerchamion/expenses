@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-          foregroundColor: Colors.amber,
+          foregroundColor: Colors.white,
           backgroundColor: Colors.deepPurple,
         ),
         fontFamily: 'Quicksand',
@@ -107,19 +107,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text('Beren\'s Expenses'),
+            middle: const Text('Beren\'s Expenses'),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 GestureDetector(
-                  child: Icon(CupertinoIcons.add),
+                  child: const Icon(CupertinoIcons.add),
                   onTap: () => _startAddNewTransaction(context),
                 ),
               ],
             ),
           )
         : AppBar(
-            title: Text('Beren\'s Expenses'),
+            title: const Text('Beren\'s Expenses'),
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.add),
