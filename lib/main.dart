@@ -21,24 +21,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
         accentColor: Colors.blueGrey[300],
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(
+              headline6: const TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
-              button: TextStyle(
+              button: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           foregroundColor: Colors.white,
           backgroundColor: Colors.deepPurple,
         ),
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+                headline6: const TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -136,46 +136,55 @@ class _MyHomePageState extends State<MyHomePage> {
       child: ExpenseList(_usersExpenses, _deleteExpense),
     );
 
+    List<Widget> _buildLandscapeContent() {
+      return [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Show Chart', style: Theme.of(context).textTheme.headline5),
+            Switch.adaptive(
+              activeColor: Theme.of(context).accentColor,
+              value: _showChart,
+              onChanged: (val) {
+                setState(() {
+                  _showChart = val;
+                });
+              },
+            ),
+          ],
+        ),
+        _showChart
+            ? Container(
+                height: (_mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        _mediaQuery.padding.top) *
+                    0.7,
+                child: Chart(_weeklyExpenses),
+              )
+            : _expListWidget,
+      ];
+    }
+
+    List<Widget> _buildPortraitContent(
+        MediaQueryData mq, AppBar ab, Widget expList) {
+      return [
+        Container(
+          height:
+              (mq.size.height - ab.preferredSize.height - mq.padding.top) * 0.3,
+          child: Chart(_weeklyExpenses),
+        ),
+        expList,
+      ];
+    }
+
     var body = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            if (_isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Show Chart', style: Theme.of(context).textTheme.headline5),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ), //Row
+            if (_isLandscape) ..._buildLandscapeContent(),
             if (!_isLandscape)
-              Container(
-                height: (_mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        _mediaQuery.padding.top) *
-                    0.3,
-                child: Chart(_weeklyExpenses),
-              ),
-            if (!_isLandscape) _expListWidget,
-            if (_isLandscape)
-              _showChart
-                  ? Container(
-                      height: (_mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              _mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_weeklyExpenses),
-                    )
-                  : _expListWidget,
+              ..._buildPortraitContent(_mediaQuery, appBar, _expListWidget),
           ],
         ),
       ),
