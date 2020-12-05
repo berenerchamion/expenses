@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/expense.dart';
 
-class ExpenseItem extends StatelessWidget {
-
+class ExpenseItem extends StatefulWidget {
   const ExpenseItem({
     Key key,
     @required this.expense,
@@ -12,6 +13,27 @@ class ExpenseItem extends StatelessWidget {
 
   final Expense expense;
   final Function deleteExp;
+
+  @override
+  _ExpenseItemState createState() => _ExpenseItemState();
+}
+
+class _ExpenseItemState extends State<ExpenseItem> {
+  Color _bgColor;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    const availableColors = [
+      Colors.red,
+      Colors.green,
+      Colors.purple,
+      Colors.blue
+    ];
+    _bgColor = availableColors[Random().nextInt(4)];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +48,21 @@ class ExpenseItem extends StatelessWidget {
       elevation: 3,
       child: ListTile(
         leading: CircleAvatar(
+          backgroundColor: _bgColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(5),
             child: FittedBox(
-              child: Text('\$${expense.amount}'), //Text
+              child: Text('\$${widget.expense.amount}'), //Text
             ), //FittedBox
           ), //Padding
         ), //CircleAvatar
         title: Text(
-          expense.title,
+          widget.expense.title,
           style: theme.textTheme.headline6,
         ),
         subtitle: Text(
-          DateFormat.yMMMd().format(expense.date),
+          DateFormat.yMMMd().format(widget.expense.date),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 12,
@@ -52,14 +75,14 @@ class ExpenseItem extends StatelessWidget {
                 icon: Icon(Icons.delete),
                 label: const Text('Delete'),
                 textColor: theme.errorColor,
-                onPressed: () => deleteExp(expense.id),
+                onPressed: () => widget.deleteExp(widget.expense.id),
               )
             : IconButton(
                 icon: Icon(
                   Icons.delete,
                   color: theme.errorColor,
                 ),
-                onPressed: () => deleteExp(expense.id),
+                onPressed: () => widget.deleteExp(widget.expense.id),
               ),
       ),
     );

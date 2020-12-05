@@ -18,7 +18,15 @@ class _NewExpenseState extends State<NewExpense> {
   final _amountController = TextEditingController();
   DateTime _selectedDate;
 
+  @override
+  void initState() {
+    print('initState');
+    super.initState();
+  }
+
   void _newExp() {
+
+    print('_newExp Constructor');
     final title = _titleController.text;
 
     if (_amountController.text.isEmpty) {
