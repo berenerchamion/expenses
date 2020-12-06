@@ -38,7 +38,10 @@ class ExpenseList extends StatelessWidget {
             })
           : ListView.builder(
               itemBuilder: (ctx, index) {
-                return ExpenseItem(expense: expenses[index], deleteExp: this.deleteExp);
+                return ExpenseItem(
+                    key: ValueKey(expenses[index].id),
+                    expense: expenses[index],
+                    deleteExp: this.deleteExp);
               },
               itemCount: expenses.length,
             ),

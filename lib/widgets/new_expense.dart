@@ -20,7 +20,6 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   void initState() {
-    print('initState');
     super.initState();
   }
 
